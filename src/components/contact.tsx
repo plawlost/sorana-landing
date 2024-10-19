@@ -3,9 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Mail, Briefcase, HelpCircle, Globe as GlobeIcon, ArrowRight, Menu, X } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 import Globe, { GLOBE_CONFIG } from './ui/globe';
+import Image from 'next/image';
 
 const API_BASE_URL = 'https://soranaapi.replit.app';
 

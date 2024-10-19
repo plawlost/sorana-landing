@@ -4,9 +4,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Shield, Zap, Globe, ChevronDown, Menu, X, Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
+import { Search, Zap, Globe, ChevronDown, Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 const API_BASE_URL = 'https://soranaapi.replit.app';
 
 const teamMembers = [

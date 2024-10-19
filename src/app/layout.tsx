@@ -1,6 +1,7 @@
 import './globals.css';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import Image from 'next/image';
 
 export default function RootLayout({
   children,
@@ -18,7 +19,7 @@ export default function RootLayout({
         />
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
+
         {/* Keywords for better discoverability */}
         <meta 
           name="keywords" 
@@ -45,7 +46,9 @@ export default function RootLayout({
         <meta name="twitter:image" content="/images/sorana.png" />
 
         {/* Favicon */}
-        <link rel="icon" href="/images/sorana-small.png" />
+        <link rel="favicon" href="/images/sorana-small.png" type="image/png" />
+        <link rel="icon" href="/images/sorana-small.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/sorana-small.png" type="image/png" />
 
         {/* Canonical URL */}
         <link rel="canonical" href="https://sorana.io" />
