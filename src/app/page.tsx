@@ -1,11 +1,57 @@
+//page.tsx
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Shield, Zap, Globe, ChevronDown, Menu, X } from 'lucide-react';
+import { Search, Shield, Zap, Globe, ChevronDown, Menu, X, Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 const API_BASE_URL = 'https://soranaapi.replit.app';
+
+const teamMembers = [
+  { 
+    name: 'yaz', 
+    role: 'co-founder & ceo, head of vision', 
+    bio: "founder of plawlabs, clade ai and the driving force behind sorana. from leading privacy-first innovations to spearheading the revolution to reclaim the web, yaz is shaping the future of decentralized search and putting control back in users' hands.", 
+    imgSrc: '/images/yaz.jpg',
+    xLink: 'https://x.com/plawlost/',
+    email: 'yaz@sorana.io'
+  },
+  { 
+    name: 'nik', 
+    role: 'co-founder & head of industrial & strategic partnerships', 
+    bio: 'leading sorana\'s industrial development and satellite strategy, while securing key partnerships to push the product forward. about to drop out of harvard because he believes in sorana that much.', 
+    imgSrc: '/images/nik.png',
+    linkedinLink: 'https://www.linkedin.com/in/ntoz',
+    email: 'nik@sorana.io'
+  },
+  { 
+    name: 'omar', 
+    role: 'co-founder & head of web & ux', 
+    bio: "computer science graduate and devops wizard, omar crafts sorana's minimal, intuitive interface while ensuring seamless integration across the entire tech stack. his expertise in both user experience and backend infrastructure makes sorana's performance as magical as its design.", 
+    imgSrc: '/images/omar.png',
+    linkedinLink: 'https://www.linkedin.com/in/omaradwn/',
+    email: 'omar@sorana.io'
+  },
+  { 
+    name: 'kyrie', 
+    role: 'head of marketing & communications', 
+    bio: 'crafting the story behind sorana, telling the world why it matters and getting people hooked.', 
+    imgSrc: '/images/kyrie.jpg',
+    instagramLink: 'https://www.instagram.com/kyriewasbanned/?utm_source=ig_web_button_share_sheet',
+    email: 'kyrie@sorana.io'
+  },
+  { 
+    name: 'kareem', 
+    role: 'crypto & financial strategy advisor', 
+    bio: 'innovating sorana\'s financial strategy, keeping the numbers sharp while leading the crypto approach.', 
+    imgSrc: '/images/kerem.png',
+    linkedinLink: 'https://www.linkedin.com/in/kerem-kahraman-9912232a6',
+    email: 'kareem@sorana.io'
+  }
+];
+
 
 const DynamicBackground = () => (
   <div className="fixed inset-0 z-0">
@@ -81,7 +127,12 @@ const Page = () => {
         throw new Error('signup failed');
       }
 
-      setIsModalOpen(true);
+      const data = await response.json();
+      if (data.success) {
+        setIsModalOpen(true);
+      } else {
+        throw new Error('signup failed');
+      }
     } catch (err) {
       setError('an error occurred. please try again.');
     } finally {
@@ -113,37 +164,6 @@ const Page = () => {
   return (
     <div className="bg-[#0a0a0a] text-white min-h-screen font-montserrat lowercase relative z-10">
       <DynamicBackground />
-
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a] bg-opacity-90 backdrop-blur-md">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <a href="#" className="text-2xl font-bold">
-            <Image src="/sorana.png" alt="Sorana" width={120} height={40} />
-          </a>
-          <div className="hidden md:flex space-x-8">
-            <a href="#why" className="hover:text-[#39FF14] transition-colors duration-300">why sorana</a>
-            <a href="#products" className="hover:text-[#39FF14] transition-colors duration-300">products</a>
-            <a href="#join" className="hover:text-[#39FF14] transition-colors duration-300">join alpha</a>
-          </div>
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-        <div className="h-1 bg-[#39FF14]" style={{ width: `${scrollProgress}%` }}></div>
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              className="md:hidden bg-[#0a0a0a] bg-opacity-95 absolute top-full left-0 right-0 p-4"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <a href="#why" className="block py-2 hover:text-[#39FF14] transition-colors duration-300">why sorana</a>
-              <a href="#products" className="block py-2 hover:text-[#39FF14] transition-colors duration-300">products</a>
-              <a href="#join" className="block py-2 hover:text-[#39FF14] transition-colors duration-300">join alpha</a>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
 
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 z-10">
         <motion.h1
@@ -179,136 +199,135 @@ const Page = () => {
         </motion.div>
       </section>
 
-      <section id="why" className="py-20 px-4 relative z-10">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">what's wrong with today's internet?</h2>
-          <div className="flex flex-col md:flex-row max-w-6xl mx-auto">
-            <motion.div
-              className="flex-1 p-8 bg-[#141414] rounded-lg mb-8 md:mb-0 md:mr-8 transition-all duration-300 cursor-pointer"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <h3 className="text-2xl font-bold mb-4 text-[#39FF14]">the dead internet</h3>
-              <p className="text-gray-300">the internet today is controlled by corporations. every search you make is tracked, every click is sold, and you're shown what they want you to see. the web isn't free anymore—it's manipulated by seo, clickbait, and ads.</p>
-            </motion.div>
-            <motion.div
-              className="flex-1 p-8 bg-[#39FF14] rounded-lg transition-all duration-300 cursor-pointer"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <h3 className="text-2xl font-bold mb-4 text-[#0a0a0a]">the sorana solution</h3>
-              <p className="text-[#0a0a0a]">decentralized, human-driven, authentic results. take back control of your data and contribute to a free and open internet. with sorana, you're not just a user—you're an owner of the web.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
-      <section id="products" className="py-20 px-4 relative z-10">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">the sorana ecosystem</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {products.map((product, index) => (
-              <motion.div
-                key={product.title}
-                className="text-center p-6 bg-[#141414] rounded-lg hover:bg-[#39FF14] hover:text-[#0a0a0a] transition-all duration-300 cursor-pointer group"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <product.icon className="w-16 h-16 text-[#39FF14] group-hover:text-[#0a0a0a] mx-auto mb-4" />
-                <h3 className="text-2xl font-bold mb-2">{product.title}</h3>
-                <p className="text-[#39FF14] group-hover:text-[#0a0a0a] mb-4">{product.status}</p>
-                <p className="text-gray-300 group-hover:text-[#0a0a0a]">{product.description}</p>
-              </motion.div>
-            ))}
-          </div>
+<section id="why" className="py-20 px-4 relative z-10">
+  <div className="container mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-12 text-[#39FF14]">what's wrong with today's internet?</h2>
+    <div className="flex flex-col md:flex-row max-w-6xl mx-auto space-y-8 md:space-y-0 md:space-x-8">
+      <div className="flex-1 flex flex-col">
+        <div className="aspect-w-16 aspect-h-9 mb-4">
+          <Image
+            src="/images/dead.png"
+            alt="The Dead Internet"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
         </div>
-      </section>
+        <h3 className="text-2xl font-bold mb-4 text-[#39FF14]">the dead internet</h3>
+        <p className="text-gray-300 flex-grow">the internet today is controlled by corporations. every search you make is tracked, every click is sold, and you're shown what they want you to see. the web isn't free anymore—it's manipulated by seo, clickbait, and ads.</p>
+      </div>
+      <div className="flex-1 flex flex-col">
+        <div className="aspect-w-16 aspect-h-9 mb-4">
+          <Image
+            src="/images/sorana_ss.jpg"
+            alt="The Sorana Solution"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
+        </div>
+        <h3 className="text-2xl font-bold mb-4 text-[#39FF14]">the sorana solution</h3>
+        <p className="text-gray-300 flex-grow">decentralized, human-driven, authentic results. take back control of your data and contribute to a free and open internet. with sorana, you're not just a user—you're an owner of the web.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <section id="join" className="py-20 px-4 bg-[#0a0a0a] relative z-10">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">join the sorana alpha</h2>
-          <p className="text-xl text-center mb-8 text-gray-300">be part of the movement that's taking back the web. your feedback and contributions will help shape sorana for the world.</p>
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-            <div className="mb-4">
-              <input
-                type="email"
-                placeholder="enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="github/gitlab link"
-                value={githubLink}
-                onChange={(e) => setGithubLink(e.target.value)}
-                className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="linkedin"
-                value={linkedinLink}
-                onChange={(e) => setLinkedinLink(e.target.value)}
-                className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
-              />
-</div>
-            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-            <motion.button
-              type="submit"
-              className="w-full bg-[#39FF14] text-[#0a0a0a] text-xl py-4 rounded-full hover:bg-opacity-90 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={isLoading}
-            >
-              {isLoading ? 'signing up...' : 'sign up for early access'}
-            </motion.button>
-          </form>
-        </div>
-      </section>
-
-      <footer className="py-12 px-4 bg-[#141414] relative z-10">
-        <div className="container mx-auto">
-          <div className="flex flex-wrap justify-between items-center">
-            <div className="w-full md:w-1/3 mb-6 md:mb-0">
-              <h3 className="text-2xl font-bold text-[#39FF14] mb-2">sorana</h3>
-              <p className="text-gray-300">decentralizing the web, one search at a time.</p>
-            </div>
-            <nav className="w-full md:w-1/3 mb-6 md:mb-0">
-              <ul className="flex flex-wrap justify-center md:justify-end">
-                <li><a href="#" className="text-gray-300 hover:text-[#39FF14] mx-3 transition-colors duration-200">terms</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-[#39FF14] mx-3 transition-colors duration-200">privacy</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-[#39FF14] mx-3 transition-colors duration-200">about us</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-[#39FF14] mx-3 transition-colors duration-200">roadmap</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-[#39FF14] mx-3 transition-colors duration-200">contact</a></li>
-              </ul>
-            </nav>
-            <div className="w-full md:w-1/3 text-center md:text-right">
-              <p className="text-gray-300">&copy; 2024 sorana. all rights reserved.</p>
-              <p className="text-[#39FF14] mt-2">total srt earned: {srtCount.toLocaleString()}</p>
-            </div>
+      <section id="team" className="py-20 px-4 relative z-10">
+  <div className="container mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-12">the squad making it happen</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {teamMembers.slice(0, 3).map((member, index) => (
+        <TeamMemberCard key={member.name} member={member} index={index} />
+      ))}
+      <div className="sm:col-span-2 lg:col-span-3 flex justify-center gap-8">
+        {teamMembers.slice(3, 5).map((member, index) => (
+          <div key={member.name} className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)]">
+            <TeamMemberCard member={member} index={index + 3} />
           </div>
-        </div>
-      </footer>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<section id="products" className="py-20 px-4 relative z-10">
+  <div className="container mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-12">the sorana ecosystem</h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      {products.map((product, index) => (
+        <motion.div
+          key={product.title}
+          className="text-center p-6 bg-[#141414] rounded-lg hover:bg-[#39FF14] hover:text-[#0a0a0a] transition-all duration-300 cursor-pointer group"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.2 }}
+          whileHover={{ scale: 1.05 }}
+        >
+          <product.icon className="w-16 h-16 text-[#39FF14] group-hover:text-[#0a0a0a] mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-2 text-[#39FF14] group-hover:text-[#0a0a0a]">{product.title}</h3>
+          <p className="text-white group-hover:text-[#0a0a0a] mb-4">{product.status}</p>
+          <p className="text-gray-300 group-hover:text-[#0a0a0a]">{product.description}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+<section id="join" className="py-20 px-4 bg-[#0a0a0a] relative z-10">
+  <div className="container mx-auto">
+    <h2 className="text-4xl font-bold text-center mb-4 text-[#39FF14]">join the sorana alpha</h2>
+    <p className="text-xl text-center mb-8 text-gray-300">be part of the movement that's taking back the web. your feedback and contributions will help shape sorana for the world.</p>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+      <div className="mb-4">
+        <input
+          type="email"
+          placeholder="enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+          required
+        />
+      </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="github/gitlab link"
+          value={githubLink}
+          onChange={(e) => setGithubLink(e.target.value)}
+          className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+        />
+      </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="x / linkedin"
+          value={linkedinLink}
+          onChange={(e) => setLinkedinLink(e.target.value)}
+          className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+        />
+      </div>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-4 bg-[#141414] text-white rounded-full focus:outline-none focus:ring-2 focus:ring-[#39FF14]"
+        />
+      </div>
+      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+      <motion.button
+        type="submit"
+        className="w-full bg-[#39FF14] text-[#0a0a0a] text-xl py-4 rounded-full hover:bg-opacity-90 transition-all duration-300"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        disabled={isLoading}
+      >
+        {isLoading ? 'signing up...' : 'sign up for early access'}
+      </motion.button>
+    </form>
+  </div>
+</section>
 
       <AnimatePresence>
         {isModalOpen && (
@@ -341,5 +360,51 @@ const Page = () => {
     </div>
   );
 };
+
+const TeamMemberCard = ({ member, index }) => (
+  <motion.div
+    className="text-center bg-[#141414] p-6 rounded-lg flex flex-col justify-between h-full"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: index * 0.1 }}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <div>
+      <div className="w-32 h-32 rounded-full bg-[#39FF14] mx-auto mb-4 overflow-hidden">
+        <Image
+          src={member.imgSrc}
+          alt={member.name}
+          width={128}
+          height={128}
+          className="object-cover"
+        />
+      </div>
+      <h3 className="text-2xl font-bold mb-2 text-[#39FF14]">{member.name}</h3>
+      <p className="text-white mb-2">{member.role}</p>
+      <p className="text-sm text-gray-300 mb-4">{member.bio}</p>
+    </div>
+    <div className="flex justify-center space-x-4 mt-auto">
+      {member.name === 'yaz' && (
+        <a href={member.xLink} target="_blank" rel="noopener noreferrer">
+          <Twitter className="w-5 h-5 text-[#39FF14] hover:text-white transition-colors" />
+        </a>
+      )}
+      {member.name === 'kyrie' && (
+        <a href={member.instagramLink} target="_blank" rel="noopener noreferrer">
+          <Instagram className="w-5 h-5 text-[#39FF14] hover:text-white transition-colors" />
+        </a>
+      )}
+      {member.name !== 'yaz' && member.name !== 'kyrie' && (
+        <a href={member.linkedinLink} target="_blank" rel="noopener noreferrer">
+          <Linkedin className="w-5 h-5 text-[#39FF14] hover:text-white transition-colors" />
+        </a>
+      )}
+      <a href={`mailto:${member.email}`}>
+        <Mail className="w-5 h-5 text-[#39FF14] hover:text-white transition-colors" />
+      </a>
+    </div>
+  </motion.div>
+);
 
 export default Page;

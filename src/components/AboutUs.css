@@ -1,0 +1,213 @@
+/* AboutUs.css */
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .about-us-page {
+    @apply text-white bg-[#0a0a0a] min-h-screen font-montserrat lowercase;
+  }
+  
+  .hero-section {
+    @apply relative min-h-screen flex items-center justify-center pt-16;
+  }
+  
+  .hero-bg {
+    @apply absolute inset-0 object-cover;
+    filter: brightness(0.4);
+  }
+  
+  .hero-content {
+    @apply relative z-10 text-center max-w-4xl mx-auto px-4;
+    width: 100%;
+  }
+  
+  .hero-title {
+    @apply relative z-10 pointer-events-none whitespace-pre-wrap text-center font-bold leading-tight;
+  }
+  
+  .hero-title .small-text {
+    @apply text-3xl md:text-4xl mb-2 block text-[#39FF14];
+  }
+  
+  .hero-title .large-text {
+    @apply text-5xl md:text-7xl block text-transparent bg-clip-text bg-gradient-to-b from-[#39FF14] to-green-500;
+    line-height: 1.1;
+  }
+  
+  .hero-content h2 {
+    @apply text-xl md:text-2xl mt-8 text-white;
+  }
+  
+  .section {
+    @apply py-20 relative z-10;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #39FF14, transparent);
+    opacity: 0.3;
+  }
+  
+  .section::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #39FF14;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+  }
+  
+  .section:nth-child(odd)::before {
+    top: 0;
+  }
+  
+  .section:nth-child(odd)::after {
+    top: -5px;
+  }
+  
+  .section:nth-child(even)::before {
+    bottom: 0;
+  }
+  
+  .section:nth-child(even)::after {
+    bottom: -5px;
+  }
+  
+  .section:hover::after {
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+    }
+    50% {
+      box-shadow: 0 0 15px #39FF14, 0 0 30px #39FF14;
+    }
+    100% {
+      box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+    }
+  }
+  
+  .section h2 {
+    @apply text-4xl font-bold mb-8 text-[#39FF14] text-center;
+  }
+  
+  .section h3 {
+    @apply text-2xl font-bold mb-4 text-[#39FF14];
+  }
+  
+  .content-block {
+    @apply max-w-3xl mx-auto;
+  }
+  
+  .section p {
+    @apply mb-6 text-lg;
+  }
+  
+  .section-image {
+    @apply rounded-lg shadow-lg mb-8 mx-auto;
+  }
+  
+  .tech-specs {
+    @apply bg-[#141414] p-6 rounded-lg mt-8;
+  }
+  
+  .tech-specs h3 {
+    @apply text-2xl font-bold mb-4 text-[#39FF14];
+  }
+  
+  .tech-specs ul {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+  }
+  
+  .tech-specs li {
+    @apply bg-[#0a0a0a] p-4 rounded-lg;
+  }
+  
+  .btn-primary {
+    @apply bg-[#39FF14] text-black font-bold py-3 px-6 rounded-full 
+           hover:bg-opacity-80 transition-all duration-300 inline-flex items-center;
+  }
+  
+  .link-highlight {
+    @apply text-[#39FF14] hover:underline;
+  }
+  
+  .problem-section,
+  .solution-section,
+  .search-revolution,
+  .whats-next {
+    @apply mb-20;
+  }
+  
+  /* Navigation styles */
+  .nav-link {
+    @apply hover:text-[#39FF14] transition-colors duration-300;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-title .small-text {
+      @apply text-2xl;
+    }
+    
+    .hero-title .large-text {
+      @apply text-4xl;
+    }
+    
+    .hero-content h2 {
+      @apply text-lg;
+    }
+    
+    .section h2 {
+      @apply text-3xl;
+    }
+    
+    .section h3 {
+      @apply text-xl;
+    }
+  }
+
+  /* AboutUs.css */
+/* ... (previous styles remain the same) */
+
+.hero-content {
+  @apply relative z-10 text-center max-w-4xl mx-auto px-4;
+  width: 100%;
+}
+
+.hero-title {
+  @apply relative z-10 pointer-events-none whitespace-pre-wrap text-center font-bold leading-tight;
+}
+
+.hero-title .small-text {
+  @apply text-3xl md:text-4xl mb-2 block text-[#39FF14];
+}
+
+.hero-title .large-text {
+  @apply text-5xl md:text-7xl block text-transparent bg-clip-text bg-gradient-to-b from-[#39FF14] to-green-500;
+  line-height: 1.1;
+}
+
+.hero-content h2 {
+  @apply text-xl md:text-2xl mt-8 text-white;
+}
+
+
+/* Ensure the video dialog is visible above the particles */
+.hero-content > div:last-child {
+  @apply z-30;
+}
+
+/* ... (rest of the styles remain the same) */
